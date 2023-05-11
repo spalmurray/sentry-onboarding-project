@@ -36,6 +36,10 @@ app.get('/bad', (req, res) => {
   throw new Error('oof this is a bad endpoint');
 });
 
+app.get('/also/bad', (req, res) => {
+  throw new Error('this one is also bad!');
+});
+
 // The error handler must be before any other error middleware and after all controllers
 app.use(Sentry.Handlers.errorHandler());
 
