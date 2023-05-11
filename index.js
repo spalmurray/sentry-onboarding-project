@@ -1,6 +1,5 @@
 import express from 'express';
 import * as Sentry from '@sentry/node';
-import Tracing from '@sentry/node';
 
 const app = express();
 const port = 3000;
@@ -11,7 +10,7 @@ Sentry.init({
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
     // enable Express.js middleware tracing
-    new Tracing.Integrations.Express({ app }),
+    new Sentry.Integrations.Express({ app }),
     // Automatically instrument Node.js libraries and frameworks
     ...Sentry.autoDiscoverNodePerformanceMonitoringIntegrations(),
   ],
@@ -29,7 +28,10 @@ app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
 
 app.get('/', (req, res) => {
-  res.send('meowdy');
+  const transaction = Sentry.startTransaction({ name: "meowdy" });
+  Sentry.getCurrentHub().configureScope((scope) => scope.setSpan(transaction));
+  res.send("meowdy");
+  transaction.finish();
 });
 
 app.get('/bad', (req, res) => {
