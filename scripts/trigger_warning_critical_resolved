@@ -1,0 +1,12 @@
+#! /bin/bash
+echo "Triggering warning"
+./send_bad 5 > /dev/null
+./send_good 5 > /dev/null
+echo "Waiting for 60 seconds"
+sleep 60
+echo "Triggering critical"
+./send_bad 5 > /dev/null
+echo "Waiting for 60 seconds"
+sleep 60
+echo "Triggering resolved"
+./send_good 5 > /dev/null

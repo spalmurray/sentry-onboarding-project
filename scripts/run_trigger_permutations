@@ -1,0 +1,17 @@
+#! /bin/bash
+printf "Running all alert trigger permutations\n"
+printf "\nWarning -> Resolved\n"
+./trigger_warning_resolved
+printf "Waiting for 60 seconds\n"
+sleep 60
+printf "\nCritical -> Resolved\n"
+./trigger_critical_resolved
+printf "Waiting for 60 seconds\n"
+sleep 60
+printf "\nWarning -> Critical -> Resolved\n"
+./trigger_warning_critical_resolved
+printf "Waiting for 60 seconds\n"
+sleep 60
+printf "\nCritical -> Warning -> Resolved\n"
+./trigger_critical_warning_resolved
+printf "\nDone!\n"

@@ -1,0 +1,5 @@
+#! /bin/sh
+for i in $(seq $1)
+do
+    curl -s localhost:3000/bad
+done
